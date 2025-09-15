@@ -27,8 +27,34 @@ export default function FileUpload({
   const [uploadMethod, setUploadMethod] = useState<UploadMethod>('signed');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const isImage = (file: File) => file.type.startsWith('image/');
-  const isVideo = (file: File) => file.type.startsWith('video/');
+  const isImage = (file: File) => {
+    const imageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const fileName = file.name.toLowerCase();
+
+    return file.type.startsWith('image/') ||
+           imageTypes.includes(file.type) ||
+           imageExtensions.some(ext => fileName.endsWith(ext));
+  };
+
+  const isVideo = (file: File) => {
+    const videoTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm'];
+    const videoExtensions = ['.mp4', '.mov', '.avi', '.webm'];
+    const fileName = file.name.toLowerCase();
+
+    console.log('Video file check:', {
+      fileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+      isVideoType: file.type.startsWith('video/'),
+      matchesSpecificType: videoTypes.includes(file.type),
+      matchesExtension: videoExtensions.some(ext => fileName.endsWith(ext))
+    });
+
+    return file.type.startsWith('video/') ||
+           videoTypes.includes(file.type) ||
+           videoExtensions.some(ext => fileName.endsWith(ext));
+  };
 
   const uploadImageDirect = async (file: File) => {
     // Get upload URL
@@ -152,9 +178,26 @@ export default function FileUpload({
   const handleFiles = async (files: FileList | null) => {
     if (!files) return;
 
+    console.log('Files received:', files.length, 'files');
+
     const fileArray = Array.from(files);
     const validFiles = fileArray.filter(file => {
+      console.log('Processing file:', {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        lastModified: file.lastModified
+      });
+
+      // iOS에서 파일 크기가 0인 경우 처리
+      if (file.size === 0) {
+        console.warn('File size is 0, might be iOS issue:', file.name);
+        alert(`${file.name}의 크기가 0입니다. 다시 선택해주세요.`);
+        return false;
+      }
+
       if (!isImage(file) && !isVideo(file)) {
+        console.warn('Unsupported file type:', file.type, 'for file:', file.name);
         alert(`${file.name}은(는) 지원되지 않는 파일 형식입니다.`);
         return false;
       }
@@ -361,7 +404,7 @@ export default function FileUpload({
           ref={fileInputRef}
           type="file"
           multiple
-          accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,video/mp4,video/quicktime,video/x-msvideo,video/webm"
+          accept="image/*,video/*"
           onChange={(e) => handleFiles(e.target.files)}
           className="hidden"
         />
