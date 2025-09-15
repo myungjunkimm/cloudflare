@@ -361,7 +361,7 @@ export default function FileUpload({
           ref={fileInputRef}
           type="file"
           multiple
-          accept="image/*,video/*"
+          accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,video/mp4,video/quicktime,video/x-msvideo,video/webm"
           onChange={(e) => handleFiles(e.target.files)}
           className="hidden"
         />
