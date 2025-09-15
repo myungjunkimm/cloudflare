@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Read(//c/Users/Matt/Desktop/cloudflare_next/src/app/api/stream/thumbnail/[id]/**)",
+      "Read(//c/Users/Matt/Desktop/cloudflare_next/src/lib/**)",
+      "Read(//c/Users/Matt/Desktop/cloudflare_next/src/components/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
