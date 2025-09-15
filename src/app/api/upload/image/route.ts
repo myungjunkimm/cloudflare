@@ -44,14 +44,14 @@ export async function POST(request: NextRequest) {
       success: true,
       result: {
         id: imageId,
-        originalUrl: `${baseUrl}/public`,
-        webpUrl: `${baseUrl}/format=webp`,
-        thumbnailUrl: `${baseUrl}/w=200,h=200,fit=cover`,
+        originalUrl: `${baseUrl}/public?f=auto&q=90`,
+        webpUrl: `${baseUrl}/format=webp&f=auto`,
+        thumbnailUrl: `${baseUrl}/w=200,h=200,fit=cover&f=auto&q=80`,
         variants: {
-          small: `${baseUrl}/w=400`,
-          medium: `${baseUrl}/w=800`,
-          large: `${baseUrl}/w=1920`,
-          webp: `${baseUrl}/format=webp,quality=85`
+          small: `${baseUrl}/w=400&f=auto&q=85`,
+          medium: `${baseUrl}/w=800&f=auto&q=85`,
+          large: `${baseUrl}/w=1920&f=auto&q=85`,
+          webp: `${baseUrl}/format=webp,quality=85&f=auto`
         }
       }
     });

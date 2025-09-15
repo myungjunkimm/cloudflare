@@ -65,6 +65,26 @@ export async function POST(request: NextRequest) {
           transformParams = '&f=auto';  // Public Gallery와 동일
           break;
         case 'standardThumbnail':
+          transformParams = '&f=auto&fit=cover&w=300&h=300&q=80';  // 기본 썸네일용
+          break;
+        case 'w=400':
+          transformParams = '&f=auto&fit=scale-down&q=85';
+          break;
+        case 'w=800':
+          transformParams = '&f=auto&fit=scale-down&q=85';
+          break;
+        case 'w=1920':
+          transformParams = '&f=auto&fit=scale-down&q=85';
+          break;
+        case 'w=200,h=200,fit=cover':
+          transformParams = '&f=auto&q=80';
+          break;
+        case 'format=webp':
+          transformParams = '&f=auto&q=85';
+          break;
+        case 'format=webp,quality=85':
+          transformParams = '&f=auto';
+          break;
         default:
           transformParams = '&f=auto&fit=cover&w=300&h=300&q=80';  // 기본 썸네일용
       }
@@ -135,6 +155,26 @@ export async function GET(request: NextRequest) {
       transformParams = '&f=auto';  // Public Gallery와 동일
       break;
     case 'standardThumbnail':
+      transformParams = '&f=auto&fit=cover&w=300&h=300&q=80';  // 기본 썸네일용
+      break;
+    case 'w=400':
+      transformParams = '&f=auto&fit=scale-down&q=85';
+      break;
+    case 'w=800':
+      transformParams = '&f=auto&fit=scale-down&q=85';
+      break;
+    case 'w=1920':
+      transformParams = '&f=auto&fit=scale-down&q=85';
+      break;
+    case 'w=200,h=200,fit=cover':
+      transformParams = '&f=auto&q=80';
+      break;
+    case 'format=webp':
+      transformParams = '&f=auto&q=85';
+      break;
+    case 'format=webp,quality=85':
+      transformParams = '&f=auto';
+      break;
     default:
       transformParams = '&f=auto&fit=cover&w=300&h=300&q=80';  // 기본 썸네일용
   }
